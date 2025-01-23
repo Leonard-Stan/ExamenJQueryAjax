@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="contenedor">
+
+    </div>
+
+    <button id="1"> archivo1</button>
+    <button id="2">archivo2</button>
+
+    
+    <script>
+        window.onload = function () {
+
+            // Obtén los botones y el contenedor
+            var botones = document.getElementsByTagName('button');
+            var contenedor = document.getElementById("contenedor");
+
+
+
+            // Recorre cada botón y agrega un manejador de eventos
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].addEventListener('click', function () {
+
+
+                    // Determina qué archivo cargar según el botón presionado
+                    var archivo = this.id === "1" ? "1.html" : "2.html";
+
+                    
+                    // Crea la solicitud XMLHttpRequest
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+
+                        
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log("Archivo cargado");
+
+
+                            // Inserta el contenido del archivo en el contenedor
+                            contenedor.innerHTML = this.responseText;
+                        }
+                    };
+
+                    xhr.open("GET", archivo, true);
+                    xhr.send();
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
