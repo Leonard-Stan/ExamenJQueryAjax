@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="alternador" value="0"> alternar</button>
+    <div id="imagencontainer"> 
+        <img id="imagen" src="https://aguacatec.es/wp-content/uploads/2023/10/e5a978b8-6772-4c85-a50e-15581af7d483.png" alt="">
+    </div>
+
+
+
+    <script>
+
+
+        window.onload = function () {
+            var imagen = document.getElementById("imagen");
+            var button = document.getElementById("alternador")
+            var indice = 0;
+            var xhr = new XMLHttpRequest();
+            const URLs = [
+                "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/ba/29/5c/img-worlds-of-adventure.jpg?w=900&h=500&s=1",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH3t_bS8mNcYHIna9HbERQSOujwQ7i8jQXcQ&s"
+            ];
+            
+    
+            button.addEventListener('click', function () {
+
+                indice = (indice+1) % URLs.length;
+                if(xhr){
+                    xhr.open("GET", URLs[indice], true);
+                    xhr.responseType = "blob";
+
+
+                     xhr.onreadystatechange = function () {
+
+                        
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log("Archivo cargado");
+                            var imgURL = URL.createObjectURL(xhr.response);
+
+
+                            // Inserta el contenido del archivo en el contenedor
+                            imagen.src = imgURL;
+
+                            imagen.onload = function(){
+                                URL.revokeObjectURL(imgURL);
+                            }
+                        }
+                    };
+
+                    xhr.send();
+                }
+
+                
+            })
+            
+        }
+    </script>
+</body>
+</html>
