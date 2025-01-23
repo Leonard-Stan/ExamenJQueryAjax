@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="texto">
+        
+    </div>
+
+
+    <script>
+        
+        var contenedor = document.getElementById("texto");
+        var xhr = new XMLHttpRequest();
+
+        let archivo = "texto.txt";
+
+        xhr.onreadystatechange = function () {
+             
+            if(this.readyState == 4 && this.status == 200){
+                console.log("Llega");
+                contenedor.append(this.responseText);
+            }
+
+            
+            
+        }
+
+        xhr.open("GET", archivo, true);
+        xhr.send();
+
+
+    </script>
+</body>
+</html>
