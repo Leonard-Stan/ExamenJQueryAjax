@@ -1,0 +1,12 @@
+services:
+  php-apache:
+    image: php:8.2-rc-apache-bullseye
+    container_name: php-apache-container
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - PUID=1145215169
+      - PGID=1178000513
+    user: "1145215169:1178000513"
